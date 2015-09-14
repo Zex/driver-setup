@@ -1,0 +1,6 @@
+
+KMOD_HEADERS = `pwd`/kmod
+INCLUDES = . $(KMOD_HEADERS)
+
+
+
