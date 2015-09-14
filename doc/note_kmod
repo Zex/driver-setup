@@ -160,6 +160,9 @@ alias symbol:drm_debug drm
 
 modules.order Format
 
+This file records the order in which modules appear in Makefiles. This is used by modprobe to deterministrically resolve that match multiple modules.
+-- kbuild/kbuild.txt
+
 kernel/arch/x86/kernel/cpu/mcheck/mce-inject.ko
 kernel/arch/x86/kernel/msr.ko
 kernel/arch/x86/kernel/cpuid.ko
