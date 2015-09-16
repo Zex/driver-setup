@@ -250,3 +250,33 @@ blacklist driver1-name
 blacklist driver2-name
 
 
+
+Available commands in configuration
+
+blacklist
+install
+remove
+alias
+options
+softdep
+
+
+Kmod tools
+
+$ kmod list 
+$ lsmod
+have the same action, list loaded modules 
+
+--ignore-install, --ignore-remove
+Cause modprobe to ignore install and remove commands
+
+Show all names matching given alias
+# modprobe -R aes
+aes_x86_64
+aesni_intel
+padlock_aes
+
+
+Remove a module and its dependencies
+# modprobe -r aes
+
