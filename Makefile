@@ -9,6 +9,5 @@ LDPATH =  $(KMOD_HEADERS)/lib
 apps: 
 	make -C apps all
 
-pluto:
+pluto: 
 	make -C pluto all
-
