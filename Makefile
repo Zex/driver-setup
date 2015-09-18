@@ -7,7 +7,7 @@ LDPATH =  $(KMOD_HEADERS)/lib
 .PHONY: all apps pluto
 
 apps: 
-	make -C apps all
+	$(MAKE) -C apps all
 
 pluto: 
-	make -C pluto all
+	$(MAKE) -C pluto all
