@@ -1,0 +1,9 @@
+#! /bin/bash
+# Start ibus-daemon 
+# Author: Zex <top_zlynch AT yahoo.com> 
+#
+. /etc/init.d/functions
+
+uid=`who|awk '{if($2=="pts/0") system("id -u "$1);}'` # else print "0";}'`
+sudo -u#$uid ibus-daemon -rd
+
