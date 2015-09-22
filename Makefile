@@ -11,3 +11,6 @@ apps:
 
 pluto: 
 	$(MAKE) -C pluto all
+
+tags:
+	ctags -R . ../linux-zex
