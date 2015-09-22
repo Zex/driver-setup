@@ -12,9 +12,11 @@ drwxr-xr-x. 2 root root    0 Sep 22 23:34 sections
 -r--r--r--. 1 root root 4096 Sep 22 23:34 taint
 --w-------. 1 root root 4096 Sep 22 23:24 uevent
 
-
-
 # dmesg |grep -i pluto
 [12843.502019] pluto: module license 'MIT' taints kernel.
 [12843.502067] pluto: module verification failed: signature and/or required key missing - tainting kernel
 [12843.504271] [Pluto] entering ...
+[13827.572761] [Pluto] leaving ...
+
+$ cat /proc/modules |grep pluto
+pluto 12722 0 - Live 0xffffffffa0a49000 (POF)
