@@ -27,60 +27,60 @@ int pluto_init(void)
 
     if (home)
     {
-        printk(PLUTO_PREF" home=%s", home);
+        printk(PLUTO_PREF" home=%s\n", home);
     }
 
-    printk(PLUTO_PREF" distance=%li", distance);
+    printk(PLUTO_PREF" distance=%li\n", distance);
 
     return 0;
 }
 
 void pluto_cleanup(void)
 {
-    printk(KERN_INFO "[Pluto] leaving ...\n");
+    printk(KERN_INFO PLUTO_PREF" leaving ...\n");
 }
 
 
 static ssize_t pluto_read(struct file *file, char __user *buf,
 			size_t count, loff_t *ppos)
 {
-    printk(KERN_INFO "[Pluto] reading ...\n");
+    printk(KERN_INFO PLUTO_PREF" reading ...\n");
     return 0;
 }
 
 static ssize_t pluto_write (struct file *file, const char __user *buf, size_t count, loff_t *ppos)
 {
-    printk(KERN_INFO "[Pluto] writing ...\n");
+    printk(KERN_INFO PLUTO_PREF" writing ...\n");
     return 0;
 }
 
 static unsigned int pluto_poll(struct file *file, poll_table *wait)
 {
-    printk(KERN_INFO "[Pluto] polling ...\n");
+    printk(KERN_INFO PLUTO_PREF" polling ...\n");
     return 0;
 }
 
 static int pluto_release(struct inode *inode, struct file *file)
 {
-    printk(KERN_INFO "[Pluto] releasing ...\n");
+    printk(KERN_INFO PLUTO_PREF" releasing ...\n");
     return 0;
 }
 
 static int pluto_fasync(int fd, struct file *filp, int on)
 {
-    printk(KERN_INFO "[Pluto] fasync ...\n");
+    printk(KERN_INFO PLUTO_PREF" fasync ...\n");
     return 0;
 }
 
 static long pluto_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
-    printk(KERN_INFO "[Pluto] ioctl ...\n");
+    printk(KERN_INFO PLUTO_PREF" ioctl ...\n");
     return 0;
 }
 
 static int pluto_open(struct inode *inode, struct file *file)
 {
-    printk(KERN_INFO "[Pluto] open ...\n");
+    printk(KERN_INFO PLUTO_PREF" open ...\n");
     return 0;
 }
 
