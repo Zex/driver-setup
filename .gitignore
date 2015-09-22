@@ -31,4 +31,17 @@
 # Debug files
 *.dSYM/
 
+# ctags files
 tags
+
+# module files
+*.ko.cmd
+*.o.cmd
+*.order
+*.priv
+*.mod.c
+*.symvers
+.tmp_versions
+
+
+
