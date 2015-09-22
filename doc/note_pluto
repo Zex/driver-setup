@@ -47,3 +47,41 @@ $ dmesg |grep -i pluto
 [ 5111.017939] [Pluto] distance=9876543
 [ 5132.737960] [Pluto] leaving ...
 
+# insmod pluto/pluto.ko home="Havana" distance=718
+$ dmesg |grep -i pluto
+[ 6479.045520] [Pluto] entering ...
+[ 6479.045525] [Pluto] home=Havana
+[ 6479.045527] [Pluto] distance=718
+
+
+# modinfo pluto.ko
+filename:       /home/zex/lab/driver-setup/pluto/pluto.ko
+plutoinfo:      DEADBEEF --> customized module info
+description:    pluto
+author:         Zex Li
+license:        MIT
+rhelversion:    7.1
+srcversion:     1C5A0042893A97538BE88E4
+depends:        
+vermagic:       3.10.0-229.14.1.el7.x86_64 SMP mod_unload modversions 
+parm:           home:charp
+parm:           distance:long
+
+$ ls /dev/pluto 
+/dev/pluto
+# cat /dev/pluto                                                                                                         
+$ dmesg |grep -i pluto|tail -3
+[  790.349657] [Pluto] open ...
+[  790.349682] [Pluto] reading ...
+[  790.349688] [Pluto] releasing ...
+
+$ ls /proc/driver/pluto 
+/proc/driver/pluto
+$ cat /proc/driver/pluto 
+$ dmesg |grep -i pluto|tail -3 
+[  871.292974] [Pluto] proc open ...
+[  871.292999] [Pluto] proc reading ...
+[  871.293005] [Pluto] proc releasing ...
+
+
+
