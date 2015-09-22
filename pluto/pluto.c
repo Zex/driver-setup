@@ -2,6 +2,7 @@
  *
  * Author: Zex Li <top_zlynch AT yahoo.com>
  */
+#include <linux/init.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/miscdevice.h>
@@ -12,15 +13,25 @@ MODULE_LICENSE("MIT");
 MODULE_AUTHOR("Zex Li");
 MODULE_DESCRIPTION("pluto");
 
-static char *whom = "UNIVERSE";
-module_param(whom, charp, 0);
+static char *home = "UNIVERSE";
+module_param(home, charp, true);
 
-static int howmany = 3;
-module_param(howmany, int, 0);
+static long distance = 9876543;
+module_param(distance, long, true);
+
+#define PLUTO_PREF "[Pluto]"
 
 int pluto_init(void)
 {
-    printk(KERN_INFO "[Pluto] entering ...\n");
+    printk(KERN_INFO PLUTO_PREF" entering ...\n");
+
+    if (home)
+    {
+        printk(PLUTO_PREF" home=%s", home);
+    }
+
+    printk(PLUTO_PREF" distance=%li", distance);
+
     return 0;
 }
 
