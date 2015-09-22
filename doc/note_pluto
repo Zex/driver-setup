@@ -1,0 +1,20 @@
+# ls -l /sys/module/pluto/
+total 0
+-r--r--r--. 1 root root 4096 Sep 22 23:24 coresize
+drwxr-xr-x. 2 root root    0 Sep 22 23:24 holders
+-r--r--r--. 1 root root 4096 Sep 22 23:34 initsize
+-r--r--r--. 1 root root 4096 Sep 22 23:34 initstate
+drwxr-xr-x. 2 root root    0 Sep 22 23:34 notes
+-r--r--r--. 1 root root 4096 Sep 22 23:24 refcnt
+-r--r--r--. 1 root root 4096 Sep 22 23:34 rhelversion
+drwxr-xr-x. 2 root root    0 Sep 22 23:34 sections
+-r--r--r--. 1 root root 4096 Sep 22 23:34 srcversion
+-r--r--r--. 1 root root 4096 Sep 22 23:34 taint
+--w-------. 1 root root 4096 Sep 22 23:24 uevent
+
+
+
+# dmesg |grep -i pluto
+[12843.502019] pluto: module license 'MIT' taints kernel.
+[12843.502067] pluto: module verification failed: signature and/or required key missing - tainting kernel
+[12843.504271] [Pluto] entering ...
