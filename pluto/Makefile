@@ -1,6 +1,6 @@
 # Makefile for pluto
 #
-obj-m		:= pluto.c
+obj-m		:= pluto.o
 MODULES_LIB	:= /lib/modules/$(shell uname -r)/build
 #MODULES_LIB	:= /usr/src/$(shell uname -r)
 
