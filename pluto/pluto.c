@@ -2,16 +2,19 @@
  *
  * Author: Zex Li <top_zlynch AT yahoo.com>
  */
-#include <linux/init.h>
-#include <linux/kernel.h>
 #include <linux/module.h>
+#include <linux/init.h>
 #include <linux/miscdevice.h>
+#include <linux/proc_fs.h>
 #include <linux/fs.h>
+#include <linux/kernel.h>
+#include <linux/seq_file.h>
 #include <linux/poll.h>
 
 MODULE_LICENSE("MIT");
 MODULE_AUTHOR("Zex Li");
 MODULE_DESCRIPTION("pluto");
+MODULE_INFO(plutoinfo, "DEADBEEF");
 
 static char *home = "UNIVERSE";
 module_param(home, charp, true);
@@ -21,8 +24,17 @@ module_param(distance, long, true);
 
 #define PLUTO_PREF "[Pluto]"
 
+static const struct file_operations pluto_fops;
+static struct miscdevice __attribute__ ((unused)) pluto_dev;
+#ifdef CONFIG_PROC_FS
+static const struct file_operations pluto_proc_fops;
+#endif
+
 int pluto_init(void)
 {
+#ifdef CONFIG_PROC_FS
+	struct proc_dir_entry *ent;
+#endif
     printk(KERN_INFO PLUTO_PREF" entering ...\n");
 
     if (home)
@@ -32,12 +44,29 @@ int pluto_init(void)
 
     printk(PLUTO_PREF" distance=%li\n", distance);
 
+	if (misc_register(&pluto_dev))
+    {
+        printk(PLUTO_PREF" misc_register failed\n");
+    }
+
+#ifdef CONFIG_PROC_FS
+	ent = proc_create("driver/pluto", 0, NULL, &pluto_proc_fops);
+
+	if (!ent)
+    {
+		printk(KERN_WARNING PLUTO_PREF" Failed to register with procfs.\n");
+    }
+#endif
+
     return 0;
 }
 
 void pluto_cleanup(void)
 {
     printk(KERN_INFO PLUTO_PREF" leaving ...\n");
+
+	remove_proc_entry("driver/pluto", NULL);
+	misc_deregister(&pluto_dev);
 }
 
 
@@ -84,6 +113,25 @@ static int pluto_open(struct inode *inode, struct file *file)
     return 0;
 }
 
+static int pluto_proc_open (struct inode *inode, struct file *file)
+{
+    printk(KERN_INFO PLUTO_PREF" proc open ...\n");
+    return 0;
+}
+
+static ssize_t pluto_proc_read(struct file *file, char __user *buf,
+			size_t count, loff_t *ppos)
+{
+    printk(KERN_INFO PLUTO_PREF" proc reading ...\n");
+    return 0;
+}
+
+static int pluto_proc_release(struct inode *inode, struct file *file)
+{
+    printk(KERN_INFO PLUTO_PREF" proc releasing ...\n");
+    return 0;
+}
+
 static const struct file_operations pluto_fops = {
 	.owner		= THIS_MODULE,
 	.llseek		= no_llseek,
@@ -96,11 +144,21 @@ static const struct file_operations pluto_fops = {
 	.fasync		= pluto_fasync,
 };
 
-static struct miscdevice __attribute__ ((unused)) pluto_dev = {
+static struct miscdevice pluto_dev = {
 	.minor		= MISC_DYNAMIC_MINOR,
 	.name		= "pluto",
 	.fops		= &pluto_fops,
 };
+
+#ifdef CONFIG_PROC_FS
+static const struct file_operations pluto_proc_fops = {
+	.owner		= THIS_MODULE,
+	.open		= pluto_proc_open,
+	.read		= pluto_proc_read,//seq_read,
+	.llseek		= no_llseek,//seq_lseek,
+	.release	= pluto_proc_release,//single_release,
+};
+#endif
 
 module_init(pluto_init);
 module_exit(pluto_cleanup);
