@@ -20,3 +20,11 @@ drwxr-xr-x. 2 root root    0 Sep 22 23:34 sections
 
 $ cat /proc/modules |grep pluto
 pluto 12722 0 - Live 0xffffffffa0a49000 (POF)
+
+Reading module parameters
+
+# chmod +x /sys/module/pluto/parameters/*
+$ cat /sys/module/pluto/parameters/home
+UNIVERSE
+$ cat /sys/module/pluto/parameters/distance
+9876543
