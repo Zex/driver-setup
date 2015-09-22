@@ -8,9 +8,8 @@ SIGNFILE_PATH	:= $(MODULES_LIB)/scripts/sign-file
 PRIVKEY_PATH	:= signing_key.priv
 X509KEY_PATH	:= signing_key.x509
 
-all: kernkey
+all:
 	$(MAKE) -C $(MODULES_LIB) M=$(shell pwd) modules
-	#perl $(SIGNFILE_PATH) sha512 $(PRIVKEY_PATH) $(X509KEY_PATH) $(MODNAME).ko
 
 clean:
 	$(MAKE) -C $(MODULES_LIB) M=$(shell pwd) clean
@@ -27,6 +26,8 @@ clean:
 # default:
 # 	$(MAKE) -C $(KERNELDIR) M=$(PWD)
 # endif
+signmod:
+	perl $(SIGNFILE_PATH) sha512 $(PRIVKEY_PATH) $(X509KEY_PATH) $(MODNAME).ko
 
 kernkey:
 	openssl req -new -nodes -utf8 -sha256 -days 36500 -batch -x509 \
