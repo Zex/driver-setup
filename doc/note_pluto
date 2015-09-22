@@ -12,7 +12,7 @@ drwxr-xr-x. 2 root root    0 Sep 22 23:34 sections
 -r--r--r--. 1 root root 4096 Sep 22 23:34 taint
 --w-------. 1 root root 4096 Sep 22 23:24 uevent
 
-# dmesg |grep -i pluto
+$ dmesg |grep -i pluto
 [12843.502019] pluto: module license 'MIT' taints kernel.
 [12843.502067] pluto: module verification failed: signature and/or required key missing - tainting kernel
 [12843.504271] [Pluto] entering ...
@@ -28,3 +28,22 @@ $ cat /sys/module/pluto/parameters/home
 UNIVERSE
 $ cat /sys/module/pluto/parameters/distance
 9876543
+
+# insmod pluto.ko
+# rmmod pluto
+$ dmesg |grep -i pluto
+[ 4959.393379] [Pluto] entering ...
+[ 4959.393386] [Pluto] home=UNIVERSE
+[ 4959.393389] [Pluto] distance=9876543
+[ 4984.934657] [Pluto] leaving ...
+
+
+# insmod pluto.ko home="Havana"
+# rmmod pluto
+$ dmesg |grep -i pluto
+
+[ 5111.017931] [Pluto] entering ...
+[ 5111.017936] [Pluto] home=Havana
+[ 5111.017939] [Pluto] distance=9876543
+[ 5132.737960] [Pluto] leaving ...
+
