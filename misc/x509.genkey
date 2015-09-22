@@ -1,0 +1,10 @@
+[ req_distinguished_name ]
+O = Zex Li
+CN = Zexx signing key
+emailAddress = top_zlynch@yahoo.com
+
+[ req ]
+default_bits = 4096
+distinguished_name = req_distinguished_name
+prompt = no
+string_mask = utf8only
