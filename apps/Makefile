@@ -11,3 +11,5 @@ all: $(TARGETS)
 %: %.cpp
 	$(CXX) -o $@ $
 
+clean:
+	@echo "cleaning apps ..."
