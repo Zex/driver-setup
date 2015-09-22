@@ -14,3 +14,7 @@ pluto:
 
 tags:
 	ctags -R . ../linux-zex
+
+clean:
+	$(MAKE) -C pluto clean
+	$(MAKE) -C apps clean
