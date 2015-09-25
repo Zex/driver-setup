@@ -15,12 +15,16 @@ MODULE_LICENSE("MIT");
 MODULE_AUTHOR("Zex Li");
 MODULE_DESCRIPTION("pluto");
 MODULE_INFO(plutoinfo, "DEADBEEF");
+MODULE_ALIAS("PLUTO");
+MODULE_ALIAS("pluto_module");
 
 static char *home = "UNIVERSE";
-module_param(home, charp, true);
+module_param(home, charp, S_IRWXU|S_IRGRP);
+MODULE_PARM_DESC(home, "Name of home");
 
 static long distance = 9876543;
-module_param(distance, long, true);
+module_param(distance, long, S_IRWXU|S_IRGRP);
+MODULE_PARM_DESC(distance, "Distance from home");
 
 #define PLUTO_PREF "[Pluto]"
 
