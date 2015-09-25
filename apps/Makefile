@@ -9,7 +9,7 @@ TARGETS := $(SOURCES:.cpp=)
 all: $(TARGETS)
 
 %: %.cpp
-	$(CXX) -o $@ $
+	$(CXX) -o $@ $^
 
 clean:
 	@echo "cleaning apps ..."
