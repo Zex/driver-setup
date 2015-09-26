@@ -153,7 +153,7 @@ static struct miscdevice pluto_dev = {
 	.name		= "pluto",
 	.fops		= &pluto_fops,
 };
-
+// TODO: seq r/w handler
 #ifdef CONFIG_PROC_FS
 static const struct file_operations pluto_proc_fops = {
 	.owner		= THIS_MODULE,
