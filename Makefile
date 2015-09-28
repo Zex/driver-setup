@@ -20,4 +20,5 @@ tags:
 
 clean:
 	$(MAKE) -C pluto clean
+	$(MAKE) -C mars clean
 	$(MAKE) -C apps clean
