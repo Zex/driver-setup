@@ -1,11 +1,13 @@
 # top-level Makefile
-#
+# Author: <Zex Li AT yahoo.com>
 KMOD_HEADERS:= `pwd`/kmod
 INCLUDES	:= . $(KMOD_HEADERS)/include
 LDPATH		:= $(KMOD_HEADERS)/lib
 COMPONENTS	:= apps pluto mars
 
 .PHONY: all apps pluto mars
+
+include makefiles/common.mk
 
 all:
 	$(foreach comp, $(COMPONENTS),$(MAKE) -C $(comp) all;)
