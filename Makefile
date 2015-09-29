@@ -23,7 +23,17 @@ mars:
 
 tags:
 	ctags -R . ../linux-zex
+ 
+clean_apps:
+	$(MAKE) -C apps clean
 
 clean:
 	$(foreach comp, $(COMPONENTS),$(MAKE) -C $(comp) clean;)
+ifeq ($(BUILD),)
+	@echo "BUILD not defined"
+else
+	@echo "cleaning "$(BUILD)"..."
+	$(RMDIR) $(BUILD)
+endif
+	@echo "clean done ..."
 
