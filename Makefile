@@ -1,10 +1,14 @@
 # top-level Makefile
 #
-KMOD_HEADERS = `pwd`/kmod
-INCLUDES = . $(KMOD_HEADERS)/include
-LDPATH =  $(KMOD_HEADERS)/lib
+KMOD_HEADERS:= `pwd`/kmod
+INCLUDES	:= . $(KMOD_HEADERS)/include
+LDPATH		:= $(KMOD_HEADERS)/lib
+COMPONENTS	:= apps pluto mars
 
 .PHONY: all apps pluto mars
+
+all:
+	$(foreach comp, $(COMPONENTS),$(MAKE) -C $(comp) all;)
 
 apps: 
 	$(MAKE) -C apps all
@@ -19,6 +23,5 @@ tags:
 	ctags -R . ../linux-zex
 
 clean:
-	$(MAKE) -C pluto clean
-	$(MAKE) -C mars clean
-	$(MAKE) -C apps clean
+	$(foreach comp, $(COMPONENTS),$(MAKE) -C $(comp) clean;)
+
