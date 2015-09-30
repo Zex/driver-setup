@@ -11,7 +11,7 @@
 #include <linux/seq_file.h>
 #include <linux/poll.h>
 
-MODULE_LICENSE("MIT");
+MODULE_LICENSE("Dual MIT/GPL");
 MODULE_AUTHOR("Zex Li");
 MODULE_DESCRIPTION("pluto");
 MODULE_INFO(plutoinfo, "DEADBEEF");
@@ -107,7 +107,23 @@ static int pluto_fasync(int fd, struct file *filp, int on)
 
 static long pluto_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
+    unsigned long buffer_kern = 0;
+
     printk(KERN_INFO PLUTO_PREF" ioctl ...\n");
+
+    printk(KERN_INFO PLUTO_PREF" ioctl now: cmd:%u arg:%lu\n", 
+             cmd, arg);
+
+
+    if (copy_from_user(&buffer_kern, &arg, sizeof(arg)))
+    {
+        printk(KERN_ERR PLUTO_PREF" copy_from_user failed\n");
+    }
+    else
+    {
+        printk(KERN_INFO PLUTO_PREF" copy_from_user done\n");
+    }
+
     return 0;
 }
 
