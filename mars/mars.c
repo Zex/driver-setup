@@ -37,6 +37,10 @@ static int mars_resume(struct platform_device *pdev)
     return 0;
 }
 
+static const struct platform_device_id mars_id_table[] = {
+    {"mars-mod", (kernel_ulong_t)mars_struct_type},
+};
+
 static struct platform_driver mars_driver = {
 	.probe		= mars_probe,
 	.remove		= mars_remove,
