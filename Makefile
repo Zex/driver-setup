@@ -1,11 +1,12 @@
 # top-level Makefile
-# Author: <Zex Li AT yahoo.com>
+# Author: Zex Li <top_zlynch AT yahoo.com>
+# Copyright 2015 Zex Li <top_zlynch AT yahoo.com>. All Rights Reserved
 KMOD_HEADERS:= `pwd`/kmod
 INCLUDES	:= . $(KMOD_HEADERS)/include
 LDPATH		:= $(KMOD_HEADERS)/lib
 COMPONENTS	:= apps pluto mars
 
-.PHONY: all apps pluto mars
+.PHONY: all apps pluto mars tags
 
 include makefiles/common.mk
 
