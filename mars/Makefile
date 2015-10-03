@@ -1,5 +1,6 @@
-# Makefile for mars
-#
+# Makefile for mars module
+# Author: Zex Li <top_zlynch AT yahoo.com>
+# Copyright 2015 Zex Li <top_zlynch AT yahoo.com>. All Rights Reserved
 MODNAME		:= mars
 obj-m		:= $(MODNAME).o
 KERNVER		:= $(shell uname -r)
