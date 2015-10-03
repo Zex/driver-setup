@@ -1,6 +1,6 @@
 [ req_distinguished_name ]
 O = Zex Li
-CN = Zexx signing key
+CN = Zex signing key
 emailAddress = top_zlynch@yahoo.com
 
 [ req ]
