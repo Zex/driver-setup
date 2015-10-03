@@ -37,9 +37,9 @@ static int mars_resume(struct platform_device *pdev)
     return 0;
 }
 
-static const struct platform_device_id mars_id_table[] = {
-    {"mars-mod", (kernel_ulong_t)mars_struct_type},
-};
+//static const struct platform_device_id mars_id_table[] = {
+//    {"mars-mod", (kernel_ulong_t)mars_struct_type},
+//};
 
 static struct platform_driver mars_driver = {
 	.probe		= mars_probe,
@@ -51,3 +51,25 @@ static struct platform_driver mars_driver = {
 	},
 };
 module_platform_driver(mars_driver);
+
+static struct platform_driver* devices [] = {
+    &mars_driver,
+};
+
+static int __init mars_init(void)
+{
+    printk(KERN_INFO "MARS init\n");
+    platform_add_devices(devices, ARRAY_SIZE(devices));
+    
+    return platform_driver_register(&mars_driver);
+}
+
+static void __exit mars_cleanup(void)
+{
+    printk(KERN_INFO "MARS cleanup\n");
+    platform_driver_unregister(&mars_driver);
+}
+
+//module_init(mars_init);
+//module_exit(mars_cleanup);
+
