@@ -2,12 +2,14 @@
 # Author: Zex Li <top_zlynch AT yahoo.com>
 # Copyright 2015 Zex Li <top_zlynch AT yahoo.com>. All Rights Reserved
 MODNAME		:= mars
-obj-m		:= $(MODNAME).o
+obj-m		:= $(MODNAME).o mars-dev1.o
 KERNVER		:= $(shell uname -r)
 MODULES_LIB		:= /lib/modules/$(KERNVER)/build
 SIGNFILE_PATH	:= $(MODULES_LIB)/scripts/sign-file
 PRIVKEY_PATH	:= signing_key.priv
 X509KEY_PATH	:= signing_key.x509
+
+.PHONY: all clean
 
 all:
 	$(MAKE) -C $(MODULES_LIB) M=$(shell pwd) modules
