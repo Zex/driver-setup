@@ -3,7 +3,7 @@
  * Author: Zex Li <top_zlynch AT yahoo.com>
  */
 #include <linux/module.h>
-#include <linux/init.h>
+//#include <linux/init.h>
 #include <linux/kernel.h>
 #include <linux/platform_device.h>
 
@@ -12,6 +12,8 @@ MODULE_AUTHOR("Zex Li");
 MODULE_DESCRIPTION("Mars moddule");
 MODULE_ALIAS("Mars");
 MODULE_ALIAS("mars_typing");
+
+#define DRIVER_NAME "mars_typing"
 
 static int mars_probe(struct platform_device *pdev)
 {
@@ -37,39 +39,40 @@ static int mars_resume(struct platform_device *pdev)
     return 0;
 }
 
-//static const struct platform_device_id mars_id_table[] = {
-//    {"mars-mod", (kernel_ulong_t)mars_struct_type},
-//};
+static const struct platform_device_id mars_id_table[] = {
+    {"mars-mod", (kernel_ulong_t)0}, //mars_struct_type},
+};
 
 static struct platform_driver mars_driver = {
 	.probe		= mars_probe,
 	.remove		= mars_remove,
 	.suspend	= mars_suspend,
 	.resume		= mars_resume,
+//    .id_table   = mars_id_table
 	.driver		= {
-		.name	= "mars-typing",
+		.name	= DRIVER_NAME,//"mars-typing",
+        .owner  = THIS_MODULE,
 	},
 };
 module_platform_driver(mars_driver);
 
-static struct platform_driver* devices [] = {
-    &mars_driver,
-};
-
-static int __init mars_init(void)
-{
-    printk(KERN_INFO "MARS init\n");
-    platform_add_devices(devices, ARRAY_SIZE(devices));
-    
-    return platform_driver_register(&mars_driver);
-}
-
-static void __exit mars_cleanup(void)
-{
-    printk(KERN_INFO "MARS cleanup\n");
-    platform_driver_unregister(&mars_driver);
-}
-
+//static struct platform_driver* devices [] = {
+//    &mars_driver,
+//};
+//
+//static int mars_init(void)
+//{
+//    printk(KERN_INFO "MARS init\n");
+//    
+//    return platform_driver_register(&mars_driver);
+//}
+//
+//static void mars_cleanup(void)
+//{
+//    printk(KERN_INFO "MARS cleanup\n");
+//    platform_driver_unregister(&mars_driver);
+//}
+//
 //module_init(mars_init);
 //module_exit(mars_cleanup);
 
