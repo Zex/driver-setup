@@ -6,5 +6,8 @@ export BUILD	:= $(PWD)/build
 export MKDIR	:= mkdir -p
 export RMDIR	:= rmdir
 
+.PHONY: all
+
 all:
 	$(MKDIR) $(BUILD)
+
