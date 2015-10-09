@@ -44,4 +44,17 @@ static int marsdev_init(void)
     return 0;
 }
 
+static void marsdev_cleanup(void)
+{
+    printk(KERN_INFO "MARS dev cleanup\n");
+
+    int i;
+	int dev_sz = ARRAY_SIZE(mars_devices);
+
+	for (i = 0; i < dev_sz; i++) {
+	    platform_device_unregister(mars_devices[i]);
+    }
+}
+
 module_init(marsdev_init);
+module_exit(marsdev_cleanup);
