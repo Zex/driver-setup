@@ -3,7 +3,6 @@
  * Author: Zex Li <top_zlynch AT yahoo.com>
  */
 #include <linux/module.h>
-//#include <linux/init.h>
 #include <linux/kernel.h>
 #include <linux/platform_device.h>
 
@@ -48,7 +47,7 @@ static struct platform_driver mars_driver = {
 	.remove		= mars_remove,
 	.suspend	= mars_suspend,
 	.resume		= mars_resume,
-//    .id_table   = mars_id_table
+    .id_table   = mars_id_table,
 	.driver		= {
 		.name	= DRIVER_NAME,//"mars-typing",
         .owner  = THIS_MODULE,
@@ -60,19 +59,15 @@ module_platform_driver(mars_driver);
 //    &mars_driver,
 //};
 //
-//static int mars_init(void)
-//{
-//    printk(KERN_INFO "MARS init\n");
-//    
-//    return platform_driver_register(&mars_driver);
-//}
-//
-//static void mars_cleanup(void)
-//{
-//    printk(KERN_INFO "MARS cleanup\n");
-//    platform_driver_unregister(&mars_driver);
-//}
-//
-//module_init(mars_init);
-//module_exit(mars_cleanup);
+//gstatic int mars_init(void)
+//g{
+//g    printk(KERN_INFO "MARS init\n");
+//g    return platform_driver_register(&mars_driver);
+//g}
+//g
+//gstatic void mars_cleanup(void)
+//g{
+//g    printk(KERN_INFO "MARS cleanup\n");
+//g    platform_driver_unregister(&mars_driver);
+//g}
 
