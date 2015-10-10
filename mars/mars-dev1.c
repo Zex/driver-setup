@@ -28,7 +28,7 @@ static struct resource mars_dev1_res[] = {
 
 static struct platform_device mars_dev1 = {
     .name   = DRIVER_NAME,
-    .id     = -1,
+    .id     = 0,
     .num_resources  = ARRAY_SIZE(mars_dev1_res),
     .resource       = mars_dev1_res,
 };
@@ -46,10 +46,10 @@ static int marsdev_init(void)
 
 static void marsdev_cleanup(void)
 {
-    printk(KERN_INFO "MARS dev cleanup\n");
-
     int i;
 	int dev_sz = ARRAY_SIZE(mars_devices);
+
+    printk(KERN_INFO "MARS dev cleanup\n");
 
 	for (i = 0; i < dev_sz; i++) {
 	    platform_device_unregister(mars_devices[i]);
