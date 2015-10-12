@@ -59,15 +59,15 @@ module_platform_driver(mars_driver);
 //    &mars_driver,
 //};
 //
-//gstatic int mars_init(void)
-//g{
-//g    printk(KERN_INFO "MARS init\n");
-//g    return platform_driver_register(&mars_driver);
-//g}
-//g
-//gstatic void mars_cleanup(void)
-//g{
-//g    printk(KERN_INFO "MARS cleanup\n");
-//g    platform_driver_unregister(&mars_driver);
-//g}
+//static int mars_init(void)
+//{
+//    printk(KERN_INFO "MARS init\n");
+//    return platform_driver_register(&mars_driver);
+//}
+//
+//static void mars_cleanup(void)
+//{
+//    printk(KERN_INFO "MARS cleanup\n");
+//    platform_driver_unregister(&mars_driver);
+//}
 
