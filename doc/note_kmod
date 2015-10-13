@@ -280,3 +280,86 @@ padlock_aes
 Remove a module and its dependencies
 # modprobe -r aes
 
+
+
+
+
+The sysfsutils
+
+Usage: systool [<options> [device]]
+	-a			Show attributes
+	-b <bus_name>		Show a specific bus
+	-c <class_name>		Show a specific class
+	-d			Show only devices
+	-h			Show usage
+	-m <module_name>	Show a specific module
+	-p			Show path to device/driver
+	-v			Show all attributes with values
+	-A <attribute_name>	Show attribute value
+	-D			Show only drivers
+	-P			Show device's parent
+
+
+
+# systool -c net
+Class = "net"
+
+  Class Device = "eth0"
+    Device = "0000:02:01.0"
+
+  Class Device = "lo"
+
+
+# ls /sys/class/
+
+mata_device
+mata_link
+mata_port
+mbacklight
+mbdi
+mblock
+mbsg
+mdma
+mdmi
+mdrm
+mfirmware
+mgraphics
+mhidraw
+mhwmon
+mi2c-adapter
+mieee80211
+minput
+mleds
+mmem
+mmisc
+mnet
+mpci_bus
+mphy
+mpowercap
+mpower_supply
+mppdev
+mrfkill
+mrtc
+mscsi_device
+mscsi_disk
+mscsi_generic
+mscsi_host
+msound
+mspi_host
+mspi_master
+mspi_transport
+mthermal
+mtty
+mvc
+mvtconsole
+mwatchdog
+
+
+# systool -m usb_common
+Module = "usb_common"
+# systool -m nfs
+Module = "nfs"
+# systool -m firmware_class
+Module = "firmware_class"
+
+
