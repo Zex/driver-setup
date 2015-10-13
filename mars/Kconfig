@@ -1,0 +1,13 @@
+#
+# Mars subsystem configuration
+#
+
+menu "Mars support"
+
+config MARS
+	tristate "Mars core"
+    default y
+	help
+      The mars module
+
+endmenu
