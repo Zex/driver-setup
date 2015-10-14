@@ -333,6 +333,11 @@ Load modules on boot
 # echo mars >> /etc/modules
 # echo mars-dev1 >> /etc/modules
 
+/etc/init.d/kmod is the script run on startup, it loads the modules listed in /etc/modules. By default, it search /etc/modules-load.d, /run/modules-load.d and /lib/modules-load.d, where /etc/modules-load.d is a symbolic link to /etc/modules.
+
+
+
+
 
 The sysfsutils
 ============================================================
@@ -381,6 +386,19 @@ Module = "nfs"
 # systool -m firmware_class
 Module = "firmware_class"
 
+
+Kernel initcall order 
+============================================================
+early_initcall
+pure_initcall
+core_initcall
+postcore_initcall
+arch_initcall
+subsys_initcall
+fs_initcall
+rootfs_initcall
+device_initcall
+late_initcall
 
 
 
