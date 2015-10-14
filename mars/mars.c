@@ -72,3 +72,6 @@ static void mars_cleanup(void)
     platform_driver_unregister(&mars_driver);
 }
 
+device_initcall(mars_init);
+module_exit(mars_cleanup);
+
