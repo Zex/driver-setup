@@ -400,5 +400,3 @@ rootfs_initcall
 device_initcall
 late_initcall
 
-
-
