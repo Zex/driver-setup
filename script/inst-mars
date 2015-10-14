@@ -1,12 +1,12 @@
 # run as root
 
-KERNVER=`uanme -r`
+KERNVER=`uname -r`
 MARS_PATH="/lib/modules/$KERNVER/kernel/mars"
 MARSKO_PATH=$MARS_PATH"/mars.ko"
 MARSDEV1KO_PATH=$MARS_PATH"/mars-dev1.ko"
 
 # install .ko to system path
-mkdir $MARS_PATH
+mkdir -p $MARS_PATH
 cp -r mars/*.ko $MARS_PATH
 
 # update modules configures
