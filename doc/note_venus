@@ -1,0 +1,58 @@
+
+# dmesg |grep -i venus
+[ 3456.459251] [Venus] entering ...
+[ 3456.459254] [Venus] relay channel=venusrchan
+[ 3456.459267] [Venus] create buf file
+[ 3456.459275] [Venus] subbuf start
+[ 3456.459278] [Venus] create buf file
+[ 3456.459282] [Venus] subbuf start
+[ 3456.459284] [Venus] create buf file
+[ 3456.459286] [Venus] subbuf start
+[ 3456.459290] [Venus] create buf file
+[ 3456.459292] [Venus] subbuf start
+
+
+# find /sys -name venusrchan*
+/sys/kernel/debug/venusrchan3
+/sys/kernel/debug/venusrchan2
+/sys/kernel/debug/venusrchan1
+/sys/kernel/debug/venusrchan0
+
+# cat /sys/kernel/debug/venusrchan2
+
+# dmesg |grep -i venus
+[ 3456.459251] [Venus] entering ...
+[ 3456.459254] [Venus] relay channel=venusrchan
+[ 3456.459267] [Venus] create buf file
+[ 3456.459275] [Venus] subbuf start
+[ 3456.459278] [Venus] create buf file
+[ 3456.459282] [Venus] subbuf start
+[ 3456.459284] [Venus] create buf file
+[ 3456.459286] [Venus] subbuf start
+[ 3456.459290] [Venus] create buf file
+[ 3456.459292] [Venus] subbuf start
+[ 3656.682096] [Venus] open ...
+[ 3656.682111] [Venus] reading ...
+[ 3656.682118] [Venus] releasing ...
+
+
+# rmmod venus
+# dmesg |grep -i venus
+[ 3456.459251] [Venus] entering ...
+[ 3456.459254] [Venus] relay channel=venusrchan
+[ 3456.459267] [Venus] create buf file
+[ 3456.459275] [Venus] subbuf start
+[ 3456.459278] [Venus] create buf file
+[ 3456.459282] [Venus] subbuf start
+[ 3456.459284] [Venus] create buf file
+[ 3456.459286] [Venus] subbuf start
+[ 3456.459290] [Venus] create buf file
+[ 3456.459292] [Venus] subbuf start
+[ 3656.682096] [Venus] open ...
+[ 3656.682111] [Venus] reading ...
+[ 3656.682118] [Venus] releasing ...
+[ 3815.461306] [Venus] leaving ...
+[ 3815.461313] [Venus] subbuf start
+[ 3815.461314] [Venus] subbuf start
+[ 3815.461316] [Venus] subbuf start
+[ 3815.461317] [Venus] subbuf start
