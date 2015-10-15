@@ -4,43 +4,42 @@
  */
 #include <linux/module.h>
 #include <linux/init.h>
-#include <linux/miscdevice.h>
 #include <linux/proc_fs.h>
 #include <linux/fs.h>
 #include <linux/kernel.h>
 #include <linux/seq_file.h>
 #include <linux/relay.h>
+#include <linux/debugfs.h>
 
 MODULE_LICENSE("Dual MIT/GPL");
 MODULE_AUTHOR("Zex Li");
-MODULE_DESCRIPTION("venus");
+MODULE_DESCRIPTION("The venus module");
 MODULE_INFO(venusinfo, "DEADBEEF");
 MODULE_ALIAS("VENUS");
 MODULE_ALIAS("venus_module");
 
 #define VENUS_PREF "[Venus]"
 
-static char *channel_name = "venusrchan";
-module_param(channel_name, channel_name, S_IRWXU|S_IRGRP);
-MODULE_PARM_DESC(channel_name, "Name of relay channel in userspace");
+static char *rchan_name = "venusrchan";
+module_param(rchan_name, charp, S_IRWXU|S_IRGRP);
+MODULE_PARM_DESC(rchan_name, "Name of relay channel in userspace");
 
 static int subbuf_size = 512;
-module_param(subbuf_size, subbuf_size, S_IRWXU|S_IRGRP);
+module_param(subbuf_size, byte, S_IRWXU|S_IRGRP);
 MODULE_PARM_DESC(subbuf_size, "Subbuffer size of relay channel");
 
-static int subbuf__nr = 8;
-module_param(subbuf_nr, subbuf_nr, S_IRWXU|S_IRGRP);
+static int subbuf_nr = 8;
+module_param(subbuf_nr, byte, S_IRWXU|S_IRGRP);
 MODULE_PARM_DESC(subbuf_nr, "Number of subbuffer");
 
 static const struct file_operations venus_fops;
-static struct miscdevice __attribute__ ((unused)) venus_dev;
 
 #ifdef CONFIG_PROC_FS
 static const struct file_operations venus_proc_fops;
 #endif
 
 #ifdef CONFIG_RELAY
-static rchan *venus_rchan = NULL;
+static struct rchan *venus_rchan = NULL;
 static const struct file_operations venus_relay_fops;
 
 static ssize_t venus_relay_read(struct file *file, char __user *buf,
@@ -98,7 +97,7 @@ static int venus_relay_open(struct inode *inode, struct file *file)
     return 0;
 }
 
-static const struct venus_relay_fops = {
+static const struct file_operations venus_relay_fops = {
 	.owner		= THIS_MODULE,
 	.llseek		= no_llseek,
 	.read		= venus_relay_read,
@@ -116,15 +115,16 @@ struct dentry* venus_create_buf_file (const char *filename,
 {
     printk(KERN_INFO VENUS_PREF" create buf file\n");
 
-    return debugfs_create_file(filename, mode, NULL, date,
-            venus_relay_fopt);
+    return debugfs_create_file(filename, mode, NULL, NULL,
+            &venus_relay_fops);
 }
 
 static int venus_remove_buf_file(struct dentry *dentry)
 {
     printk(KERN_INFO VENUS_PREF" remove buf file\n");
 
-    return debugfs_remove(dentry);
+    debugfs_remove(dentry);
+    return 0;
 }
 
 static int venus_subbuf_start(struct rchan_buf *buf,
@@ -145,13 +145,13 @@ int venus_init(void)
 {
     printk(KERN_INFO VENUS_PREF" entering ...\n");
 
-    if (channel_name)
+    if (rchan_name)
     {
-        printk(VENUS_PREF" relay channel=%s\n", channel_name);
+        printk(VENUS_PREF" relay channel=%s\n", rchan_name);
     }
 
 #ifdef CONFIG_RELAY
-    if (!(venus_rchan = relay_open(channel_name, NULL,
+    if (!(venus_rchan = relay_open(rchan_name, NULL,
         subbuf_size, subbuf_nr, &venus_relay_cb, NULL))) 
     {
         printk(KERN_ERR VENUS_PREF" relay open failed\n");
@@ -169,8 +169,7 @@ void venus_cleanup(void)
     printk(KERN_INFO VENUS_PREF" leaving ...\n");
 
 #ifdef CONFIG_RELAY
-    relay_flush(venus_rchan, NULL, SUBBUF_SIZE,
-            N_SUBBUFS, &relay_callbacks, NULL);
+    relay_flush(venus_rchan);
 #endif
 }
 
@@ -266,12 +265,6 @@ static const struct file_operations venus_fops = {
 	.fasync		= venus_fasync,
 };
 
-static struct miscdevice venus_dev = {
-	.minor		= MISC_DYNAMIC_MINOR,
-	.name		= "venus",
-	.fops		= &venus_fops,
-};
-// TODO: seq r/w handler
 #ifdef CONFIG_PROC_FS
 static const struct file_operations venus_proc_fops = {
 	.owner		= THIS_MODULE,
