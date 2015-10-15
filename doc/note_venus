@@ -56,3 +56,16 @@
 [ 3815.461314] [Venus] subbuf start
 [ 3815.461316] [Venus] subbuf start
 [ 3815.461317] [Venus] subbuf start
+
+
+
+/sys/kernel/security
+Mount point of securityfs
+
+/sys/kernel/debug
+Mount point of debugfs
+
+/sys/kernel/notes
+A raw data file contains the binary of .note section in the kernel elf.
+
+
