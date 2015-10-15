@@ -400,3 +400,35 @@ rootfs_initcall
 device_initcall
 late_initcall
 
+
+
+Debug using relay channel
+
+# ls /sys/kernel/debug
+acpi\
+bdi\
+clk\
+dma_buf\
+dri\
+dynamic_debug\
+extfrag\
+fault_around_bytes
+frontswap\
+gpio
+hid\
+ieee80211\
+kprobes\
+mce\
+pinctrl\
+regmap\
+sched_features
+sleep_time
+suspend_stats
+tracing\
+usb\
+vmmemctl
+wakeup_sources
+x86\
+
+
+
