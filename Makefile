@@ -4,9 +4,9 @@
 KMOD_HEADERS:= `pwd`/kmod
 INCLUDES	:= . $(KMOD_HEADERS)/include
 LDPATH		:= $(KMOD_HEADERS)/lib
-COMPONENTS	:= apps pluto mars
+COMPONENTS	:= apps pluto mars venus
 
-.PHONY: all apps pluto mars tags
+.PHONY: all apps pluto mars venus tags
 
 include makefiles/common.mk
 
@@ -21,6 +21,9 @@ pluto:
 
 mars: 
 	$(MAKE) -C mars all
+
+venus: 
+	$(MAKE) -C venus all
 
 tags:
 	ctags -R . ../linux-zex
