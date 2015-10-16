@@ -1,0 +1,39 @@
+#!/bin/bash
+# run as root
+
+KERNVER=`uname -r`
+PLANETS="pluto mars venus"
+KERN_PATH="/lib/modules/$KERNVER/kernel"
+MARS_PATH=$KERN_PATH"/mars"
+PLUTO_PATH=$KERN_PATH"/pluto"
+VENUS_PATH=$KERN_PATH"/venus"
+
+hop=$1
+
+[ -z $hop ] && hop="pluto"
+
+# install .ko to system path
+case $hop in
+"mars")
+    echo "installing $hop"
+    mkdir -p $MARS_PATH
+    cp -r mars/*.ko $MARS_PATH
+;;
+"pluto")
+    echo "installing $hop"
+    mkdir -p $PLUTO_PATH
+    cp -r pluto/*.ko $PLUTO_PATH
+;;
+"venus")
+    echo "installing $hop"
+    mkdir -p $VENUS_PATH
+    cp -r venus/*.ko $VENUS_PATH
+;;
+esac
+
+# update modules configures
+depmod -av
+
+
+
+
