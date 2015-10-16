@@ -170,6 +170,7 @@ void venus_cleanup(void)
 
 #ifdef CONFIG_RELAY
     relay_flush(venus_rchan);
+    relay_close(venus_rchan);
 #endif
 }
 
