@@ -7,14 +7,12 @@
 #include <linux/proc_fs.h>
 #include <linux/fs.h>
 #include <linux/kernel.h>
-#include <linux/seq_file.h>
 #include <linux/relay.h>
 #include <linux/debugfs.h>
 
 MODULE_LICENSE("Dual MIT/GPL");
 MODULE_AUTHOR("Zex Li");
 MODULE_DESCRIPTION("The venus module");
-MODULE_INFO(venusinfo, "DEADBEEF");
 MODULE_ALIAS("VENUS");
 MODULE_ALIAS("venus_module");
 
