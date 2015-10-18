@@ -147,6 +147,9 @@ int venus_init(void)
     {
         printk(VENUS_PREF" relay channel=%s\n", rchan_name);
     }
+    
+    printk(VENUS_PREF" relay subbuf_nr=%d\n", subbuf_nr);
+    printk(VENUS_PREF" relay subbuf_size=%d\n", subbuf_size);
 
 #ifdef CONFIG_RELAY
     if (!(venus_rchan = relay_open(rchan_name, NULL,
