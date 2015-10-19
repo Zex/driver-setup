@@ -6,6 +6,7 @@
 #include <linux/init.h>
 #include <linux/proc_fs.h>
 #include <linux/fs.h>
+#include <linux/slab.h>
 #include <linux/kernel.h>
 #include <linux/relay.h>
 #include <linux/debugfs.h>
@@ -44,13 +45,13 @@ static ssize_t venus_relay_read(struct file *file, char __user *buf,
 			size_t count, loff_t *ppos)
 {
     printk(KERN_INFO VENUS_PREF" reading ...\n");
-    return 0;
+    return count;
 }
 
 static ssize_t venus_relay_write (struct file *file, const char __user *buf, size_t count, loff_t *ppos)
 {
     printk(KERN_INFO VENUS_PREF" writing ...\n");
-    return 0;
+    return count;
 }
 
 static unsigned int venus_relay_poll(struct file *file, poll_table *wait)
@@ -107,13 +108,26 @@ static const struct file_operations venus_relay_fops = {
 	.fasync		= venus_relay_fasync,
 };
 
+
+struct venus_info {
+    struct list_head list;
+    struct dentry *dent;
+    int value;
+};
+
 struct dentry* venus_create_buf_file (const char *filename,
 	  struct dentry *parent, umode_t mode,
 	  struct rchan_buf *buf, int *is_global)
 {
+    struct venus_info *info_buf;
     printk(KERN_INFO VENUS_PREF" create buf file\n");
 
-    return debugfs_create_file(filename, mode, NULL, NULL,
+    if (NULL == (info_buf = kmalloc(sizeof(struct venus_info), GFP_KERNEL)))
+    {
+        return NULL;
+    }
+
+    return debugfs_create_file(filename, mode, parent, buf,
             &venus_relay_fops);
 }
 
@@ -132,10 +146,17 @@ static int venus_subbuf_start(struct rchan_buf *buf,
     return 0;
 }
 
+static void venus_buf_unmapped(struct rchan_buf *buf,
+			     struct file *filp)
+{
+    printk(KERN_INFO VENUS_PREF" buf unmapped\n");
+}
+
 static struct rchan_callbacks venus_relay_cb = {
     .create_buf_file = venus_create_buf_file,
     .remove_buf_file = venus_remove_buf_file,
     .subbuf_start = venus_subbuf_start,
+    .buf_unmapped = venus_buf_unmapped,
 };
 #endif
 
