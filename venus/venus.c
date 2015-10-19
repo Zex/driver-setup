@@ -45,12 +45,14 @@ static ssize_t venus_relay_read(struct file *file, char __user *buf,
 			size_t count, loff_t *ppos)
 {
     printk(KERN_INFO VENUS_PREF" reading ...\n");
-    return count;
+    printk(KERN_INFO VENUS_PREF" count=%d\n", count);
+    return 0;
 }
 
 static ssize_t venus_relay_write (struct file *file, const char __user *buf, size_t count, loff_t *ppos)
 {
     printk(KERN_INFO VENUS_PREF" writing ...\n");
+    printk(KERN_INFO VENUS_PREF" count=%d buf=[%s]\n", count, buf);
     return count;
 }
 
