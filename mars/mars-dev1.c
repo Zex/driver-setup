@@ -11,6 +11,7 @@
 
 #define ARRAY_AND_SIZE(x)	(x), ARRAY_SIZE(x)
 #define DRIVER_NAME "mars_core"
+#define DEVICE_NAME "mars_dev"
 #define MARSDEV1_PREF "MARS-DEV1"
 
 MODULE_LICENSE("GPL");
@@ -40,9 +41,9 @@ static void mars_device_release(struct device *dev)
     printk(KERN_INFO MARSDEV1_PREF" device release\n");
 
     //if (pa->dev.platform_data)
-	    kfree(pa->dev.platform_data);
+	//    kfree(pa->dev.platform_data);
     //if (pa->resource)
-	    kfree(pa->resource);
+	//    kfree(pa->resource);
 	
     kfree(pa);
 }
@@ -55,13 +56,23 @@ static void mars_device_release(struct device *dev)
  * u32          num_resources;
  * struct resource *resource;
  * }
+ *
+ *                                           name
+ * platform_driver -> device -> device_driver/
+ * platform_device -> device_driver\
+ *                                  name
  */
 static struct platform_device mars_dev1 = {
-    .name   = DRIVER_NAME,
+    .name   = DEVICE_NAME,
     .id     = 0,
     .num_resources  = ARRAY_SIZE(mars_dev1_res),
     .resource       = mars_dev1_res,
-	.dev.release    = mars_device_release,
+	.dev            = {
+        .release    = mars_device_release,
+        .device     = {
+            .name = DRIVER_NAME,
+        },
+    },
 };
 
 static struct platform_device* mars_devices[] = {
