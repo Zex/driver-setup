@@ -43,6 +43,11 @@ static const struct platform_device_id mars_id_table[] = {
     {"mars-mod", (kernel_ulong_t)0}, //mars_struct_type},
 };
 
+/**                                           name
+ * platform_driver -> device -> device_driver/
+ * platform_device -> device_driver\
+ *                                  name
+ */
 static struct platform_driver mars_driver = {
 	.probe		= mars_probe,
 	.remove		= mars_remove,
@@ -50,7 +55,7 @@ static struct platform_driver mars_driver = {
 	.resume		= mars_resume,
     .id_table   = mars_id_table,
 	.driver		= {
-		.name	= DRIVER_NAME,//"mars-typing",
+		.name	= DRIVER_NAME,
         .owner  = THIS_MODULE,
 	},
 };
