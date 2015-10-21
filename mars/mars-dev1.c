@@ -44,8 +44,8 @@ static void mars_device_release(struct device *dev)
 	//    kfree(pa->dev.platform_data);
     //if (pa->resource)
 	//    kfree(pa->resource);
-	
-    kfree(pa);
+    if (pa)
+        kfree(pa);
 }
 
 /**
@@ -67,12 +67,11 @@ static struct platform_device mars_dev1 = {
     .id     = 0,
     .num_resources  = ARRAY_SIZE(mars_dev1_res),
     .resource       = mars_dev1_res,
-	.dev            = {
-        .release    = mars_device_release,
-        .device     = {
-            .name = DRIVER_NAME,
+	.dev.release    = mars_device_release,
+    .dev.driver     = {
+            .name = DRIVER_NAME
+            },
         },
-    },
 };
 
 static struct platform_device* mars_devices[] = {
@@ -84,6 +83,7 @@ static int marsdev_init(void)
     int ret;
 
     printk(KERN_INFO MARSDEV1_PREF" init\n");
+    dev_printk(KERN_DEBUG, &mars_dev1->dev, "mars_dev1->dev\n");
 //    struct platform_device *platform_device_alloc(const char *name, int id)
     platform_add_devices(ARRAY_AND_SIZE(mars_devices));
 
