@@ -44,8 +44,8 @@ static void mars_device_release(struct device *dev)
 	//    kfree(pa->dev.platform_data);
     //if (pa->resource)
 	//    kfree(pa->resource);
-    if (pa)
-        kfree(pa);
+    //if (pa)
+    //    kfree(pa);
 }
 
 /**
