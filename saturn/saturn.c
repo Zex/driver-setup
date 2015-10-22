@@ -3,6 +3,7 @@
  * Author: Zex Li <top_zlynch AT yahoo.com>
  */
 #include <linux/module.h>
+#include <linux/poll.h>
 #include <linux/init.h>
 #include <linux/fs.h>
 #include <linux/slab.h>
@@ -22,7 +23,7 @@ static const struct file_operations saturn_fops;
 int saturn_init(void)
 {
     printk(KERN_INFO SATURN_PREF" entering ...\n");
-
+    printk(KERN_INFO SATURN_PREF" BIOS VENDOR\n", dmi_get_system_info(DMI_BIOS_VENDOR));
     return 0;
 }
 
