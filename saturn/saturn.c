@@ -22,8 +22,14 @@ static const struct file_operations saturn_fops;
 
 int saturn_init(void)
 {
+    int y, m, d;
+
     printk(KERN_INFO SATURN_PREF" entering ...\n");
-    printk(KERN_INFO SATURN_PREF" BIOS VENDOR\n", dmi_get_system_info(DMI_BIOS_VENDOR));
+    printk(KERN_INFO SATURN_PREF" SYS VENDOR\n", dmi_get_system_info(DMI_SYS_VENDOR));
+    printk(KERN_INFO SATURN_PREF" date\n", dmi_get_date(DMI_PRODUCT_NAME, &y, &m, &d));
+    printk(KERN_INFO SATURN_PREF" date:%d, %d, %d\n", y, m, d);
+
+
     return 0;
 }
 
